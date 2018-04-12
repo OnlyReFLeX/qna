@@ -7,33 +7,33 @@ RSpec.describe AnswersController, type: :controller do
   describe 'GET #new' do
     before { get :new, params: { question_id: question } }
 
-    it 'Присваивание нового ответа к @answer' do
+    it 'Assigning a new answer to @answer' do
       expect(assigns(:answer)).to be_a_new(Answer)
     end
 
-    it 'Рендерить представление new' do
+    it 'render view new' do
       expect(response).to render_template :new
     end
   end
 
   describe 'POST #create' do
-    context 'Прохождение с валидными параметрами' do
-      it 'Сохранение ответа в базе данных' do
+    context 'Passing with valid parameters' do
+      it 'Saving a answer in the database' do
         expect { post :create, params: { question_id: question, answer: attributes_for(:answer) } }.to change(Answer, :count).by(1)
       end
 
-      it 'Редирект на show вопроса после создания' do
+      it 'Redirect to show question after create' do
         post :create, params: { question_id: question, answer: attributes_for(:answer) }
         expect(response).to redirect_to question_path(question)
       end
     end
 
-    context 'Прохождение с не валидными параметрами' do
-      it 'Факт что ответ не сохраняется' do
+    context 'Passing with non-valid parameters' do
+      it 'The fact that the answer is not saved' do
         expect { post :create, params: { question_id: question, answer: attributes_for(:invalid_answer)} }.to_not change(Answer, :count)
       end
 
-      it 'Перерендер представления new' do
+      it 're-render view new' do
         post :create, params: { question_id: question, answer: attributes_for(:invalid_answer) }
         expect(response).to render_template :new
       end

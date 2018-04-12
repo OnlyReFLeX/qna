@@ -8,11 +8,11 @@ RSpec.describe QuestionsController, type: :controller do
 
     before { get :index }
 
-    it 'Получаем массив всех вопросов' do
+    it 'Get array of all questions' do
       expect(assigns(:questions)).to match_array(questions)
     end
 
-    it 'Рендерим представление index' do
+    it 'render view index' do
       expect(response).to render_template :index
     end
   end
