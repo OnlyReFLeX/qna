@@ -18,8 +18,8 @@ RSpec.describe AnswersController, type: :controller do
 
   describe 'POST #create' do
     context 'Passing with valid parameters' do
-      it 'Saving a answer in the database' do
-        expect { post :create, params: { question_id: question, answer: attributes_for(:answer) } }.to change(Answer, :count).by(1)
+      it 'The answer is stored in the database and is attached to the question' do
+        expect { post :create, params: { question_id: question, answer: attributes_for(:answer) } }.to change(question.answers, :count).by(1)
       end
 
       it 'Redirect to show question after create' do
