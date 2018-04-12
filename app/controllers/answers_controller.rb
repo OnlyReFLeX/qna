@@ -1,5 +1,9 @@
 class AnswersController < ApplicationController
-  before_action :find_question, only: :create
+  before_action :find_question, only: [:create, :new]
+
+  def new
+    @answer = @question.answers.build
+  end
 
   def create
     @answer = @question.answers.build(answer_params)

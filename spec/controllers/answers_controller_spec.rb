@@ -1,10 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
+  let(:question) { create(:question) }
+  let(:answer) { create(:answer, question: question) }
+
+  describe 'GET #new' do
+    before { get :new, params: { question_id: question } }
+
+    it 'Присваивание нового ответа к @answer' do
+      expect(assigns(:answer)).to be_a_new(Answer)
+    end
+
+    it 'Рендерить представление new' do
+      expect(response).to render_template :new
+    end
+  end
 
   describe 'POST #create' do
-    let(:question) { create(:question) }
-
     context 'Прохождение с валидными параметрами' do
       it 'Сохранение ответа в базе данных' do
         expect { post :create, params: { question_id: question, answer: attributes_for(:answer) } }.to change(Answer, :count).by(1)
