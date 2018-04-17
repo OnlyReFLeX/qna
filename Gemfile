@@ -61,6 +61,8 @@ group :test do
   gem 'chromedriver-helper'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'rails-controller-testing', '~> 1.0'
+  gem 'launchy'
+
 end
 
 gem 'slim-rails', '~> 3.1'
