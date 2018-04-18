@@ -1,16 +1,12 @@
 class AnswersController < ApplicationController
   before_action :find_question, only: [:create, :new]
 
-  def new
-    @answer = @question.answers.build
-  end
-
   def create
     @answer = @question.answers.build(answer_params)
     if @answer.save
-      redirect_to @question
+      redirect_to @question, notice: 'Answer create successfully'
     else
-      render :new
+      render 'questions/show'
     end
   end
 

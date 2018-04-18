@@ -25,8 +25,6 @@ feature 'Create questions', %q{
     fill_in 'Body', with: ''
     click_on 'Create Question'
 
-    save_and_open_page
-
     expect(page).to have_content "Title can't be blank"
     expect(page).to have_content "Body can't be blank"
   end

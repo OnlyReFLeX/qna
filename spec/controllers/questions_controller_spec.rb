@@ -39,6 +39,10 @@ RSpec.describe QuestionsController, type: :controller do
     it 'renders show template' do
       expect(response).to render_template :show
     end
+
+    it 'assigns a new Answer to @answer' do
+      expect(assigns(:answer)).to be_a_new(Answer)
+    end
   end
 
   describe 'POST #create' do
