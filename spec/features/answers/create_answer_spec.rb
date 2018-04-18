@@ -10,7 +10,7 @@ feature 'Create answers', %q{
 
   scenario 'Create answer' do
     sign_in(user)
-    @question = create(:question)
+    @question = create(:question, user: user)
 
     visit question_path(@question)
 
@@ -23,7 +23,7 @@ feature 'Create answers', %q{
 
   scenario 'Create answer with invalid attributes' do
     sign_in(user)
-    @question = create(:question)
+    @question = create(:question, user: user)
 
     visit question_path(@question)
 

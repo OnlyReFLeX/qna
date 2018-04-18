@@ -4,6 +4,7 @@ class AnswersController < ApplicationController
 
   def create
     @answer = @question.answers.build(answer_params)
+    @answer.user_id = current_user.id
     if @answer.save
       redirect_to @question, notice: 'Answer create successfully'
     else

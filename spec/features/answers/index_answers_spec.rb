@@ -6,9 +6,11 @@ feature 'Show question answers', %q{
   I want go to the page question and show answers
 } do
 
+  given(:user) { create(:user) }
+
   scenario 'Question answers' do
-    @question = create(:question)
-    @answer = create(:answer, { question_id: @question.id })
+    @question = create(:question, user: user)
+    @answer = create(:answer, question: @question, user: user)
 
     visit question_path(@question)
     expect(page).to have_content @question.title
