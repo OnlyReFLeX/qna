@@ -6,6 +6,9 @@ feature 'Create answers', %q{
   I want to be able create answer
 } do
 
+  given(:user) { create(:user) }
+  before { sign_in(user) }
+
   scenario 'Create answer' do
     @question = create(:question)
 

@@ -6,7 +6,10 @@ feature 'Create questions', %q{
   I want to be able create question
 } do
 
+  given(:user) { create(:user) }
+
   scenario 'Create question' do
+    sign_in(user)
     visit questions_path
     click_on 'Ask question'
     fill_in 'Title', with: 'Test title'
@@ -19,6 +22,7 @@ feature 'Create questions', %q{
   end
 
   scenario 'Creating a question with errors' do
+    sign_in(user)
     visit questions_path
     click_on 'Ask question'
     fill_in 'Title', with: ''
