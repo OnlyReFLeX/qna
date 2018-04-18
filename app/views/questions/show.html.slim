@@ -1,12 +1,16 @@
 p
-  Title = @question.title
+  h2 Title #{@question.title}
 p
-  Body = @question.body
+  h3 Body #{@question.body}
 
-div
-  - @question.answers.each do |answer|
+h3 Comments
+- if @answers.present?
+  - @answers.each do |answer|
     p
-      = answer.body
+      b = answer.body
+      b = link_to 'Delete', answer_path(answer), method: :delete, data: { confirm: 'are you sure?' }
+- else
+  h4 No comments here
 
 = form_with model: [@question, @answer], local: true do |form|
 

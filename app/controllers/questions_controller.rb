@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
-  before_action :find_question, only: :show
+  before_action :authenticate_user!, only: [:new, :create, :destroy]
+  before_action :find_question, only: [:show, :destroy]
 
   def index
     @questions = Question.all
@@ -11,7 +11,8 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @answer = @question.answers.build
+    @answers = @question.answers
+    @answer = Answer.new
   end
 
   def create
@@ -21,6 +22,15 @@ class QuestionsController < ApplicationController
       redirect_to @question, notice: 'Question create successfully'
     else
       render :new
+    end
+  end
+
+  def destroy
+    if current_user.id == @question.user_id
+      @question.destroy
+      redirect_to questions_path, notice: 'Question successfully deleted'
+    else
+      redirect_to questions_path, alert: "You can not delete someone else's question"
     end
   end
 
