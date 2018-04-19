@@ -4,7 +4,7 @@ class AnswersController < ApplicationController
 
   def create
     @answer = @question.answers.build(answer_params)
-    @answer.user_id = current_user.id
+    @answer.user = current_user
     if @answer.save
       redirect_to @question, notice: 'Answer create successfully'
     else
@@ -14,12 +14,13 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer = Answer.find(params[:id])
-    if current_user.id == @answer.user_id
+    if current_user.author_of?(@answer)
       @answer.destroy
-      redirect_to @answer.question, notice: "Answer successfully deleted"
+      flash[:notice] = "Answer successfully deleted"
     else
-      redirect_to @answer.question, alert: "You can not delete someone else's answer"
+      flash[:alert] = "You can not delete someone else's answer"
     end
+    redirect_to @answer.question
   end
 
   private

@@ -25,9 +25,15 @@ feature 'Delete answer', %{
     question = create(:question, user: user2)
     answer = create(:answer, user: user2, question: question)
     visit question_path(question)
-    click_on 'Delete'
 
-    expect(page).to have_content "You can not delete someone else's answer"
-    expect(page).to have_content answer.body
+    expect(page).to_not have_content 'Delete'
+  end
+
+  scenario "unregister removing someone else's answer" do
+    question = create(:question, user: user)
+    answer = create(:answer, user: user, question: question)
+    visit question_path(question)
+
+    expect(page).to_not have_content 'Delete'
   end
 end

@@ -10,11 +10,10 @@ feature 'Show question answers', %q{
 
   scenario 'Question answers' do
     @question = create(:question, user: user)
-    @answer = create(:answer, question: @question, user: user)
+    @answers = create_list(:answer, 2, question: @question, user: user)
 
     visit question_path(@question)
-    expect(page).to have_content @question.title
-    expect(page).to have_content @answer.body
+    expect(page).to have_content @answers[0].body
+    expect(page).to have_content @answers[1].body
   end
-
 end

@@ -57,6 +57,10 @@ RSpec.describe QuestionsController, type: :controller do
         expect(response).to redirect_to question_path(assigns(:question))
         expect(flash[:notice]).to eq 'Question create successfully'
       end
+
+      it 'question is associated with the user' do
+        expect { post :create, params: { question: attributes_for(:question) } }.to change(@user.questions, :count).by(1)
+      end
     end
 
     context 'with invalid attributes' do

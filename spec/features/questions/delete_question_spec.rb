@@ -23,9 +23,14 @@ feature 'Delete question', %{
     sign_in(user)
     question = create(:question, user: user2)
     visit questions_path
-    click_on 'Delete'
 
-    expect(page).to have_content "You can not delete someone else's question"
-    expect(page).to have_content question.title
+    expect(page).to_not have_content 'Delete'
+  end
+
+  scenario "unregister someone else's question" do
+    question = create(:question, user: user)
+    visit questions_path
+
+    expect(page).to_not have_content 'Delete'
   end
 end
