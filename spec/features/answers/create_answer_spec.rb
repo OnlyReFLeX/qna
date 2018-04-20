@@ -7,25 +7,23 @@ feature 'Create answers', %q{
 } do
 
   given(:user) { create(:user) }
+  given!(:question) { create(:question, user: user) }
 
-  scenario 'Create answer' do
+  scenario 'Create answer', js: true do
     sign_in(user)
-    @question = create(:question, user: user)
 
-    visit question_path(@question)
+    visit question_path(question)
 
     fill_in 'Body', with: 'Answer text'
     click_on 'Create Answer'
-
-    expect(page).to have_content 'Answer create successfully'
-    expect(page).to have_content 'Answer text'
+    within '.answers' do
+      expect(page).to have_content 'Answer text'
+    end
   end
 
-  scenario 'Create answer with invalid attributes' do
+  scenario 'Create answer with invalid attributes', js: true do
     sign_in(user)
-    @question = create(:question, user: user)
-
-    visit question_path(@question)
+    visit question_path(question)
 
     fill_in 'Body', with: ''
     click_on 'Create Answer'
