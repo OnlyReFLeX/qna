@@ -62,9 +62,10 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'rails-controller-testing', '~> 1.0'
   gem 'launchy'
-
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end
 
 gem 'slim-rails', '~> 3.1'
-
 gem 'devise', '~> 4.4'
+gem 'jquery-rails', '~> 4.3'
