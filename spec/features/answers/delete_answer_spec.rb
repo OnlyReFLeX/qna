@@ -1,4 +1,4 @@
-require "rails_helper"
+require_relative "../features_helper"
 
 feature 'Delete answer', %{
   In order to be able to delete answers

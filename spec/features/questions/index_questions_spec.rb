@@ -1,4 +1,4 @@
-require "rails_helper"
+require_relative "../features_helper"
 
 feature 'Show index all questions', %{
   In order to be able show all questions

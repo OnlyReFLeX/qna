@@ -1,4 +1,4 @@
-require "rails_helper"
+require_relative "../features_helper"
 
 feature 'Create questions', %q{
   In order to be able to ask questions

@@ -1,4 +1,4 @@
-require "rails_helper"
+require_relative "../features_helper"
 
 feature 'Delete question', %{
   In order to be able to delete questions
