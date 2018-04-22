@@ -1,6 +1,8 @@
 div class="answer_#{answer.id}"
   p
     b = answer.body
+    br
+    b = answer.best
     - if current_user&.author_of?(answer)
       b = link_to 'Delete', answer_path(answer), method: :delete, data: { confirm: 'are you sure?', remote: true }
       p= link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
@@ -9,3 +11,4 @@ div class="answer_#{answer.id}"
           = f.label :body, "Answer"
           = f.text_area :body
           = f.submit 'Save'
+  = link_to 'Choose best', select_best_answer_path(answer), method: :patch, remote: true

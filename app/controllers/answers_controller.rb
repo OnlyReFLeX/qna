@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, only: [:create, :destroy, :update]
-  before_action :find_answer, only: [:destroy, :update]
+  before_action :find_answer, only: [:destroy, :update, :select_best]
   before_action :find_question, only: :create
 
   def create
@@ -24,6 +24,15 @@ class AnswersController < ApplicationController
       @question = @answer.question
     else
       redirect_to @answer.question, alert: 'You do not have enough rights'
+    end
+  end
+
+  def select_best
+    if current_user&.author_of?(@answer.question)
+      @answer.select_best_answer
+      render :select_best
+    else
+      redirect_to @answer.question, alert: 'You are not the author of this question'
     end
   end
 

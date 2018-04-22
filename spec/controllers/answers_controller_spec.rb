@@ -99,4 +99,20 @@ RSpec.describe AnswersController, type: :controller do
     end
   end
 
+  describe 'PATCH #select_best' do
+    let!(:other_question) { create(:question, user: other_user) }
+    let(:other_answer) { create(:answer, question: other_question, user: other_user) }
+
+    it 'The author of the question tries to choose the best question' do
+      patch :select_best, params: { id: answer }, format: :js
+      expect(assigns(:answer)).to eq answer
+      expect(response).to render_template :select_best
+      expect(answer.best) == true
+    end
+
+    it "User tries to choose the best answer of someone else's question" do
+      patch :select_best, params: { id: other_answer }, format: :js
+      expect(response).to redirect_to other_answer.question
+    end
+  end
 end
