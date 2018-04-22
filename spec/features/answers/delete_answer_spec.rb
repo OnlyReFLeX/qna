@@ -9,14 +9,13 @@ feature 'Delete answer', %{
   given(:user) { create(:user) }
   given(:user2) { create(:user) }
 
-  scenario 'Deleting your answer' do
+  scenario 'Deleting your answer', js: true do
     sign_in(user)
     question = create(:question, user: user)
     answer = create(:answer, user: user, question: question)
     visit question_path(question)
     click_on 'Delete'
 
-    expect(page).to have_content 'Answer successfully deleted'
     expect(page).to have_no_content answer.body
   end
 
