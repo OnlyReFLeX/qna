@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :destroy]
-  before_action :find_question, only: [:show, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :destroy, :update]
+  before_action :find_question, only: [:show, :destroy, :update]
 
   def index
     @questions = Question.all
@@ -33,6 +33,14 @@ class QuestionsController < ApplicationController
       flash[:alert] = "You can not delete someone else's question"
     end
     redirect_to questions_path
+  end
+
+  def update
+    if current_user.author_of?(@question)
+      @question.update(question_params)
+    else
+      redirect_to question_params, alert: "You can not delete someone else's question"
+    end
   end
 
   private

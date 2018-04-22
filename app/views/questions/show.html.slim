@@ -1,8 +1,4 @@
-p
-  h2 = @question.title
-p
-  h3 = @question.body
-
+= render 'question_show', question: @question
 h3 Answers
 .answers
   - if @answers.present?
