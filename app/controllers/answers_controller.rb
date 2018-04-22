@@ -21,8 +21,12 @@ class AnswersController < ApplicationController
 
   def update
     @answer = Answer.find(params[:id])
-    @answer.update(answer_params)
-    @question = @answer.question
+    if current_user.author_of?(@answer)
+      @answer.update(answer_params)
+      @question = @answer.question
+    else
+      redirect_to @answer.question, alert: 'You do not have enough rights'
+    end
   end
 
   private

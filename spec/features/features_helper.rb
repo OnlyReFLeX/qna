@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.configure do |config|
+  Capybara.javascript_driver = :webkit
+  Capybara.default_max_wait_time = 5
+
   config.include AcceptanceHelper, type: :feature
 
   config.use_transactional_fixtures = false
@@ -11,5 +14,4 @@ RSpec.configure do |config|
   config.before(:each) { DatabaseCleaner.start }
   config.after(:each) { DatabaseCleaner.clean }
 
-  Capybara.default_max_wait_time = 5
 end
