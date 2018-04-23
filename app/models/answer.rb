@@ -4,11 +4,12 @@ class Answer < ApplicationRecord
 
   validates :body, presence: true
 
-  def select_best_answer
-    if question.answers.exists?(best: true)
-      old_best_answer = question.answers.find_by(best: true)
-      old_best_answer.update!(best: false)
+  def select_best
+    old_best = question.answers.find_by(best: true)
+
+    transaction do
+      old_best.update!(best: false) unless old_best.nil?
+      self.update!(best: true)
     end
-    self.update!(best: true)
   end
 end

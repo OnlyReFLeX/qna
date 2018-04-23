@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :destroy, :update]
+  before_action :authenticate_user!, only: [:create, :destroy, :update, :select_best]
   before_action :find_answer, only: [:destroy, :update, :select_best]
   before_action :find_question, only: :create
 
@@ -13,26 +13,22 @@ class AnswersController < ApplicationController
     if current_user.author_of?(@answer)
       @answer.destroy
     else
-      redirect_to @answer.question, alert: "You can not delete someone else's answer"
+      flash[:alert] = "You can not delete someone else's answer"
     end
-
   end
 
   def update
     if current_user.author_of?(@answer)
       @answer.update(answer_params)
       @question = @answer.question
-    else
-      redirect_to @answer.question, alert: 'You do not have enough rights'
     end
   end
 
   def select_best
-    if current_user&.author_of?(@answer.question)
-      @answer.select_best_answer
-      render :select_best
+    if current_user.author_of?(@answer.question)
+      @answer.select_best
     else
-      redirect_to @answer.question, alert: 'You are not the author of this question'
+      flash[:alert] = "You can not choose the best answer from someone else's question"
     end
   end
 

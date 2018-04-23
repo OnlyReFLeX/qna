@@ -1,1 +1,6 @@
-$('.answer_<%= @answer.id %>').remove();
+<% if flash.present? %>
+  $('.flash').replaceWith('<%= j render "shared/flash" %>');
+<% else %>
+  $('.answer_<%= @answer.id %>').remove();
+<% end %>
+

@@ -89,12 +89,12 @@ RSpec.describe AnswersController, type: :controller do
       end
 
       it 'Delete answer' do
-        expect { delete :destroy, params: { id: @answer2 } }.to_not change(Answer, :count)
+        expect { delete :destroy, params: { id: @answer2 }, format: :js }.to_not change(Answer, :count)
       end
 
-      it 'redirect to index view' do
-        delete :destroy, params: { id: @answer2 }
-        expect(response).to redirect_to question_path(@answer2.question)
+      it 'render flash message' do
+        delete :destroy, params: { id: @answer2 }, format: :js
+        expect(flash[:alert]).to eq "You can not delete someone else's answer"
       end
     end
   end
@@ -103,16 +103,20 @@ RSpec.describe AnswersController, type: :controller do
     let!(:other_question) { create(:question, user: other_user) }
     let(:other_answer) { create(:answer, question: other_question, user: other_user) }
 
-    it 'The author of the question tries to choose the best question' do
+    it 'assigns answer to @answer' do
       patch :select_best, params: { id: answer }, format: :js
       expect(assigns(:answer)).to eq answer
-      expect(response).to render_template :select_best
-      expect(answer.best) == true
+    end
+
+    it 'The author of the question tries to choose the best question' do
+      patch :select_best, params: { id: answer }, format: :js
+      answer.reload
+      expect(answer).to be_best
     end
 
     it "User tries to choose the best answer of someone else's question" do
       patch :select_best, params: { id: other_answer }, format: :js
-      expect(response).to redirect_to other_answer.question
+      expect(flash[:alert]).to eq "You can not choose the best answer from someone else's question"
     end
   end
 end
