@@ -1,4 +1,4 @@
-div class="answer_#{answer.id}"
+div class="answer_#{answer.id} best_#{answer.best}"
   p
     b = answer.body
     - if current_user&.author_of?(answer)

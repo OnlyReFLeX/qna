@@ -1,7 +1,6 @@
 <% if flash.present? %>
-  $('.flash').replaceWith('<%= j render "shared/flash" %>');
+  $('.flash').html('<%= j render "shared/flash" %>');
 <% else %>
-  $('.answer_<%= @answer.id %>').remove();
-  $('.answers').prepend('<%= j render @answer %>');
+  $('.answers').html('<%= j render @answer.question.answers.by_best %>');
 <% end %>
 

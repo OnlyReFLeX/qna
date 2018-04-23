@@ -98,12 +98,9 @@ RSpec.describe QuestionsController, type: :controller do
       end
 
       it 'Delete question' do
-        expect { delete :destroy, params: { id: @question2 } }.to_not change(Question, :count)
-      end
-
-      it 'redirect to index view' do
-        delete :destroy, params: { id: @question2 }
-        expect(response).to redirect_to questions_path
+        expect {
+          expect { delete :destroy, params: { id: @question2 } }.to raise_exception(ActiveRecord::RecordNotFound)
+        }.to_not change(Question, :count)
       end
     end
   end
@@ -129,7 +126,7 @@ RSpec.describe QuestionsController, type: :controller do
       let(:other_question) { create(:question, user: other_user) }
 
       it "User tries to edit someone else's question" do
-        patch :update, params: { id: other_question, question: { body: 'new body'} }, format: :js
+        expect { patch :update, params: { id: other_question, question: { body: 'new body'} }, format: :js }.to raise_exception(ActiveRecord::RecordNotFound)
         other_question.reload
         expect(other_question.body).to_not eq 'new body'
       end

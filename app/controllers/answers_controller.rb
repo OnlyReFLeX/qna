@@ -1,7 +1,8 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :destroy, :update, :select_best]
-  before_action :find_answer, only: [:destroy, :update, :select_best]
+  before_action :authenticate_user!
+  before_action :find_answer, only: :select_best
   before_action :find_question, only: :create
+  before_action :find_current_user_answer, only: [:destroy, :update]
 
   def create
     @answer = @question.answers.build(answer_params)
@@ -10,18 +11,12 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    if current_user.author_of?(@answer)
-      @answer.destroy
-    else
-      flash[:alert] = "You can not delete someone else's answer"
-    end
+    @answer.destroy
   end
 
   def update
-    if current_user.author_of?(@answer)
-      @answer.update(answer_params)
-      @question = @answer.question
-    end
+    @answer.update(answer_params)
+    @question = @answer.question
   end
 
   def select_best
@@ -40,6 +35,10 @@ class AnswersController < ApplicationController
 
   def find_question
     @question = Question.find(params[:question_id])
+  end
+
+  def find_current_user_answer
+    @answer = current_user.answers.find(params[:id])
   end
 
   def find_answer

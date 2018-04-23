@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :destroy, :update]
-  before_action :find_question, only: [:show, :destroy, :update]
+  before_action :authenticate_user!, except: [:show, :index]
+  before_action :find_question, only: :show
+  before_action :find_current_user_question, only: [:destroy, :update]
 
   def index
     @questions = Question.all
@@ -11,7 +12,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @answers = @question.answers.order(best: :desc, created_at: :desc)
+    @answers = @question.answers.by_best
     @answer = Answer.new
   end
 
@@ -26,27 +27,22 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    if current_user.author_of?(@question)
-      @question.destroy
-      flash[:notice] = 'Question successfully deleted'
-    else
-      flash[:alert] = "You can not delete someone else's question"
-    end
-    redirect_to questions_path
+    @question.destroy
+    redirect_to questions_path, notice: 'Question successfully deleted'
   end
 
   def update
-    if current_user.author_of?(@question)
-      @question.update(question_params)
-    else
-      redirect_to question_params, alert: "You can not delete someone else's question"
-    end
+    @question.update(question_params)
   end
 
   private
 
   def find_question
     @question = Question.find(params[:id])
+  end
+
+  def find_current_user_question
+    @question = current_user.questions.find(params[:id])
   end
 
   def question_params

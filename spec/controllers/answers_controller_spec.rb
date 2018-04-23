@@ -61,7 +61,7 @@ RSpec.describe AnswersController, type: :controller do
       let(:other_answer) { create(:answer, question: question, user: other_user) }
 
       it "User tries to edit someone else's answer" do
-        patch :update, params: { id: other_answer, question_id: question, answer: { body: 'new body'} }, format: :js
+        expect { patch :update, params: { id: other_answer, question_id: question, answer: { body: 'new body'} }, format: :js }.to raise_exception(ActiveRecord::RecordNotFound)
         other_answer.reload
         expect(other_answer.body).to_not eq 'new body'
       end
@@ -89,12 +89,9 @@ RSpec.describe AnswersController, type: :controller do
       end
 
       it 'Delete answer' do
-        expect { delete :destroy, params: { id: @answer2 }, format: :js }.to_not change(Answer, :count)
-      end
-
-      it 'render flash message' do
-        delete :destroy, params: { id: @answer2 }, format: :js
-        expect(flash[:alert]).to eq "You can not delete someone else's answer"
+        expect {
+          expect { delete :destroy, params: { id: @answer2 }, format: :js }.to raise_exception(ActiveRecord::RecordNotFound)
+        }.to_not change(Answer, :count)
       end
     end
   end
