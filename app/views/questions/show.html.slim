@@ -13,5 +13,9 @@ h3 Answers
   = form.label :body
   = form.text_field :body
 
+  = form.fields_for :attachments do |a|
+    = a.label :file
+    = a.file_field :file
+
   = form.submit
 

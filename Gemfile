@@ -69,3 +69,4 @@ end
 gem 'slim-rails', '~> 3.1'
 gem 'devise', '~> 4.4'
 gem 'jquery-rails', '~> 4.3'
+gem 'carrierwave', '~> 1.2'
