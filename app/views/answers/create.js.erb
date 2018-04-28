@@ -3,5 +3,6 @@
 <% else %>
   $('.answers').prepend('<%= j render @answer %>');
   $(".new_answer_form #answer_body").val('');
+  $(".nested-fields").remove();
   $('#answer_errors').html('');
 <% end %>

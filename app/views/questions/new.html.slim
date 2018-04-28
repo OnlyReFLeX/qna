@@ -7,8 +7,11 @@
   = form.label :body
   = form.text_field :body
 
-  = form.fields_for :attachments do |a|
-    = a.label :file
-    = a.file_field :file
+  #attachments
+    = form.fields_for :attachments do |attachment|
+      = render 'shared/attachment_fields', f: attachment
+
+
+      = link_to_add_association 'Add attachment', form, :attachments, partial: 'shared/attachment_fields'
 
   = form.submit
