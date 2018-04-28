@@ -7,6 +7,7 @@ feature 'Add files to question', %q{
 } do
 
   given(:user) { create(:user) }
+  given(:other_user) { create(:user) }
 
   background do
     sign_in(user)
@@ -37,5 +38,19 @@ feature 'Add files to question', %q{
     click_link 'Delete'
     click_on 'Create'
     expect(page).to_not have_link 'spec_helper.rb'
+  end
+
+  scenario 'Deleting a file after creation', js: true do
+    click_on 'Create'
+    click_link 'Remove file'
+    expect(page).to_not have_link 'spec_helper.rb'
+  end
+
+  scenario 'Another user does not see the link delete', js: true do
+    click_on 'Create'
+    click_on 'Log out'
+    sign_in(other_user)
+    click_link 'Show'
+    expect(page).to_not have_link 'Remove file'
   end
 end

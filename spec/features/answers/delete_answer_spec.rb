@@ -14,7 +14,9 @@ feature 'Delete answer', %{
     question = create(:question, user: user)
     answer = create(:answer, user: user, question: question)
     visit question_path(question)
-    click_on 'Delete'
+    within '.answers' do
+      click_on 'Delete'
+    end
 
     expect(page).to have_no_content answer.body
   end
@@ -24,15 +26,17 @@ feature 'Delete answer', %{
     question = create(:question, user: user2)
     answer = create(:answer, user: user2, question: question)
     visit question_path(question)
-
-    expect(page).to_not have_content 'Delete'
+    within '.answers' do
+      expect(page).to_not have_content 'Delete'
+    end
   end
 
   scenario "unregister removing someone else's answer" do
     question = create(:question, user: user)
     answer = create(:answer, user: user, question: question)
     visit question_path(question)
-
-    expect(page).to_not have_content 'Delete'
+    within '.answers' do
+      expect(page).to_not have_content 'Delete'
+    end
   end
 end

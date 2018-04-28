@@ -8,6 +8,7 @@ feature 'Add files to answer', %q{
 
   given!(:user) { create(:user) }
   given(:question) { create(:question, user: user) }
+  given(:other_user) { create(:user) }
 
   background do
     sign_in(user)
@@ -40,12 +41,33 @@ feature 'Add files to answer', %q{
   end
 
   scenario 'User deletes the file when creating', js: true do
-    within '.new_answer_form' do
-      fill_in 'Body', with: 'My answer'
-    end
+    fill_in 'Body', with: 'My answer'
     attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
     click_link 'Delete'
     click_on 'Create'
     expect(page).to_not have_link 'spec_helper.rb'
+  end
+
+  scenario 'Deleting a file after creation', js: true do
+    fill_in 'Body', with: 'Answer text'
+    attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
+    click_on 'Create Answer'
+
+    within '.answers' do
+      click_link 'Remove file'
+      expect(page).to_not have_link 'spec_helper.rb'
+    end
+  end
+
+  scenario 'Another user does not see the link delete', js: true do
+    within '.new_answer_form' do
+      fill_in 'Body', with: 'Answer text'
+    end
+    attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
+    click_on 'Create Answer'
+    click_on 'Log out'
+    sign_in(other_user)
+    click_link 'Show'
+    expect(page).to_not have_link 'Remove file'
   end
 end
