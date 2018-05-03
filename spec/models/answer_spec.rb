@@ -9,6 +9,8 @@ RSpec.describe Answer, type: :model do
 
   it { should accept_nested_attributes_for :attachments }
 
+  it_behaves_like "ratingable"
+
   describe "#select_best" do
     let!(:user) { create(:user) }
     let!(:question) { create(:question, user: user) }
@@ -27,4 +29,6 @@ RSpec.describe Answer, type: :model do
       expect(answer).to be_best
     end
   end
+
+  it_behaves_like "ratingable"
 end

@@ -116,4 +116,9 @@ RSpec.describe AnswersController, type: :controller do
       expect(flash[:alert]).to eq "You can not choose the best answer from someone else's question"
     end
   end
+
+  it_behaves_like 'ratinged' do
+    let(:resource) { create(:answer, user: other_user, question: question) }
+    let(:other_resource) { create(:answer, user: @user, question: question) }
+  end
 end

@@ -1,4 +1,6 @@
 class AnswersController < ApplicationController
+  include Ratinged
+
   before_action :authenticate_user!
   before_action :find_answer, only: :select_best
   before_action :find_question, only: :create

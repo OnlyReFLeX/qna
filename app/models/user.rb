@@ -10,4 +10,8 @@ class User < ApplicationRecord
   def author_of?(resource)
     resource.user_id == self.id
   end
+
+  def non_author_of?(resource)
+    !author_of?(resource)
+  end
 end

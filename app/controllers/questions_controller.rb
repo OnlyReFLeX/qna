@@ -1,6 +1,8 @@
 class QuestionsController < ApplicationController
+  include Ratinged
+
   before_action :authenticate_user!, except: [:show, :index]
-  before_action :find_question, only: :show
+  before_action :find_question, only: [:show]
   before_action :find_current_user_question, only: [:destroy, :update]
 
   def index

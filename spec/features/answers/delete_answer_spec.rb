@@ -17,7 +17,7 @@ feature 'Delete answer', %{
     within '.answers' do
       click_on 'Delete'
     end
-
+    page.driver.browser.switch_to.alert.accept
     expect(page).to have_no_content answer.body
   end
 
