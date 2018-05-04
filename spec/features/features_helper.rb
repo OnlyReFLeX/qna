@@ -16,9 +16,10 @@ Capybara.register_driver :headless_chrome do |app|
 end
 
 Capybara.javascript_driver = :headless_chrome
+Capybara.default_max_wait_time = 5
+Capybara.server = :puma
 
 RSpec.configure do |config|
-  Capybara.default_max_wait_time = 5
 
   config.include AcceptanceHelper, type: :feature
 

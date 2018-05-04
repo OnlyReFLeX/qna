@@ -5,6 +5,7 @@ h3 Answers
     = render @answers
   - else
     h4 No answers here
+h4 New Answer
 #answer_errors
 = form_with model: [@question, @answer], class: 'new_answer_form' do |form|
 

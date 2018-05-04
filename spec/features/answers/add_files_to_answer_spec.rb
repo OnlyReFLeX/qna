@@ -22,7 +22,7 @@ feature 'Add files to answer', %q{
     within first(".nested-fields") do
       attach_file 'File', "#{Rails.root}/spec/rails_helper.rb"
     end
-    click_on 'Create'
+    click_on 'Create Answer'
 
     within '.answers' do
       expect(page).to have_link 'spec_helper.rb'
@@ -34,7 +34,7 @@ feature 'Add files to answer', %q{
     fill_in 'Body', with: 'My answer'
     attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
     click_link 'Delete'
-    click_on 'Create'
+    click_on 'Create Answer'
     expect(page).to_not have_link 'spec_helper.rb'
   end
 

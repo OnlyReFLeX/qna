@@ -18,3 +18,8 @@ div class="answer_#{answer.id} best_#{answer.best}"
           = f.submit 'Save'
   - if current_user&.author_of?(answer.question) && !answer.best?
     = link_to 'Choose best', select_best_answer_path(answer), method: :patch, remote: true
+  div class="comment_#{answer.class}_#{answer.id}"
+    p
+      = render answer.comments
+    p
+      = render 'comments/form', resource: answer

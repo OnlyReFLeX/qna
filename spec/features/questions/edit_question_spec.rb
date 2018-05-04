@@ -36,7 +36,7 @@ feature 'Question editing', %q{
 
         expect(page).to have_content 'edited question title'
         expect(page).to have_content 'edited question body'
-        expect(page).to_not have_selector 'input'
+        expect(page).to_not have_button 'Save'
       end
     end
   end
