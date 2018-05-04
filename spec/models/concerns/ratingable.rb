@@ -41,14 +41,14 @@ shared_examples_for "ratingable" do
     end
   end
 
-  describe '#voted?(user)' do
+  describe '#voted_by?(user)' do
     it 'user voted' do
-      expect(resource.voted?(user)).to be false
+      expect(resource).to_not be_voted_by(user)
     end
 
     it 'user not voted' do
       resource.vote_up(user)
-      expect(resource.voted?(user)).to_not be false
+      expect(resource).to be_voted_by(user)
     end
   end
 end

@@ -17,7 +17,7 @@ module Ratinged
   end
 
   def vote_reset
-    if @resource.voted?(current_user)
+    if @resource.voted_by?(current_user)
       @resource.vote_reset(current_user)
       render_json_details
     else
@@ -28,7 +28,7 @@ module Ratinged
   private
 
   def vote_access
-    if @resource.voted?(current_user) || current_user.author_of?(@resource)
+    if @resource.voted_by?(current_user) || current_user.author_of?(@resource)
       head :unprocessable_entity
     end
   end
