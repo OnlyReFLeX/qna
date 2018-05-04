@@ -2,6 +2,7 @@ shared_examples_for "ratingable" do
   it { should have_many(:ratings).dependent(:destroy) }
 
   let(:user) { create(:user) }
+  let(:other_user) { create(:user) }
   let(:resource) { create(:question, user: user) }
 
   describe '#vote_up(user)' do
@@ -35,9 +36,16 @@ shared_examples_for "ratingable" do
   end
 
   describe '#rating' do
-    it 'returns the values ​​of the rating' do
+    it 'Return ratings value if positive' do
       resource.vote_up(user)
-      expect(resource.rating).to eq 1
+      resource.vote_up(other_user)
+      expect(resource.rating).to eq 2
+    end
+
+    it 'Return ratings value if negative' do
+      resource.vote_down(user)
+      resource.vote_down(other_user)
+      expect(resource.rating).to eq -2
     end
   end
 
