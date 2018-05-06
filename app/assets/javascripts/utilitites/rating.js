@@ -1,4 +1,4 @@
-var ready = function() {
+var voteBind = function() {
   $('.vote').bind('ajax:success', function(e) {
     [data, status, xhr] = e.detail;
     parentClass = ".rating_" + data.klass + "_" + data.id;
@@ -12,5 +12,5 @@ var ready = function() {
   };
 };
 
-$(document).on('turbolinks:load', ready);
+$(document).on('turbolinks:load', voteBind);
 
