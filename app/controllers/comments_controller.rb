@@ -11,7 +11,7 @@ class CommentsController < ActionController::Base
   private
 
   def comment_params
-    params.require(:comment).permit(:body, :resource_id)
+    params.require(:comment).permit(:body)
   end
 
   def publish_comment
@@ -24,10 +24,7 @@ class CommentsController < ActionController::Base
   end
 
   def find_resource
-    @resource = if params[:question_id]
-                  Question.find(params[:question_id])
-                elsif params[:answer_id]
-                  Answer.find(params[:answer_id])
-                end
+    klass = [Question, Answer].detect{|c| params["#{c.name.underscore}_id"]}
+    @resource = klass.find(params["#{klass.name.underscore}_id"])
   end
 end
