@@ -25,6 +25,7 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'letter_opener', '~> 1.6'
 end
 
 group :test do
@@ -43,3 +44,7 @@ gem 'carrierwave', '~> 1.2'
 gem 'cocoon', '~> 1.2'
 gem 'skim', '~> 0.10.0'
 gem 'gon', '~> 6.2'
+gem 'omniauth', '~> 1.8'
+gem 'omniauth-vkontakte', '~> 1.4'
+gem 'omniauth-twitter', '~> 1.4'
+gem 'capybara-email', '~> 3.0'

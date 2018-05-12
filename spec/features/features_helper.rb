@@ -18,6 +18,9 @@ end
 Capybara.javascript_driver = :headless_chrome
 Capybara.default_max_wait_time = 5
 Capybara.server = :puma
+ActionDispatch::IntegrationTest
+Capybara.server_port = 3001
+Capybara.app_host = 'http://localhost:3001'
 
 RSpec.configure do |config|
 
