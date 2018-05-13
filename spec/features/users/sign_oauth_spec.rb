@@ -7,7 +7,7 @@ feature 'Authorization from providers', %{
 } do
 
 
-  let(:user) { create(:user) }
+  let(:user) { create(:user, email: 'email@temp.email') }
   let(:email) { 'new@email.com' }
 
   describe 'Twitter' do
@@ -35,6 +35,20 @@ feature 'Authorization from providers', %{
 
       expect(page).to have_content('Successfully authenticated from Twitter account.')
     end
+
+    scenario 'The user typed an email but did not confirm', js: true do
+      visit new_user_session_path
+      click_on 'Sign in with Twitter'
+
+      expect(page).to have_content 'Add Email'
+
+      fill_in 'Email', with: email
+      click_on 'Continue'
+
+      visit root_path
+
+      expect(page).to have_content 'Add Email'
+    end
   end
 
   describe 'Vkontakte' do
@@ -61,6 +75,20 @@ feature 'Authorization from providers', %{
       click_on 'Sign in with Vkontakte'
 
       expect(page).to have_content('Successfully authenticated from Vkontakte account.')
+    end
+
+    scenario 'The user typed an email but did not confirm', js: true do
+      visit new_user_session_path
+      click_on 'Sign in with Vkontakte'
+
+      expect(page).to have_content 'Add Email'
+
+      fill_in 'Email', with: email
+      click_on 'Continue'
+
+      visit root_path
+
+      expect(page).to have_content 'Add Email'
     end
   end
 end
