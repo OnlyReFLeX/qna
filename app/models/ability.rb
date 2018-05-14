@@ -8,8 +8,10 @@ class Ability
   private
 
   def guest_abilities
+    can :read, [Question, Answer, Comment]
   end
 
   def user_abilities
+    guest_abilities
   end
 end

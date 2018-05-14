@@ -7,6 +7,8 @@ class AnswersController < ApplicationController
   before_action :find_current_user_answer, only: [:destroy, :update]
   after_action :publish_answer, only: :create
 
+  check_authorization
+
   def create
     @answer = @question.answers.build(answer_params)
     @answer.user = current_user
