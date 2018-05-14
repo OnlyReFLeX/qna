@@ -39,7 +39,11 @@ class AnswersController < ApplicationController
     attachments = @answer.attachments.map do |a|
       { id: a.id, url: a.file.url, name: a.file.identifier }
     end
-    ActionCable.server.broadcast("answers_for_question_#{@answer.question_id}", answer: @answer, attachments: attachments, question_user_id: @answer.question.user_id )
+    ActionCable.server.broadcast(
+      "answers_for_question_#{@answer.question_id}",
+      answer: @answer, attachments: attachments,
+      question_user_id: @answer.question.user_id
+    )
   end
 
   def answer_params
