@@ -5,21 +5,22 @@ h3 Answers
     = render @answers
   - else
     h4 No answers here
-h4 New Answer
-#answer_errors
-= form_with model: [@question, @answer], class: 'new_answer_form' do |form|
+- if can?(:create, Answer)
+  h4 New Answer
+  #answer_errors
+  = form_with model: [@question, @answer], class: 'new_answer_form' do |form|
 
-  = render 'shared/errors', resource: @answer
+    = render 'shared/errors', resource: @answer
 
-  = form.label :body
-  = form.text_field :body
+    = form.label :body
+    = form.text_field :body
 
-  #attachments
-    = form.fields_for :attachments do |attachment|
-      = render 'attachments/attachment_fields', f: attachment
+    #attachments
+      = form.fields_for :attachments do |attachment|
+        = render 'attachments/attachment_fields', f: attachment
 
 
-      = link_to_add_association 'Add attachment', form, :attachments, partial: 'attachments/attachment_fields'
+        = link_to_add_association 'Add attachment', form, :attachments, partial: 'attachments/attachment_fields'
 
-  = form.submit
+    = form.submit
 

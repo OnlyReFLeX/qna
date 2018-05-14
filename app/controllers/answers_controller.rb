@@ -7,7 +7,7 @@ class AnswersController < ApplicationController
   before_action :find_current_user_answer, only: [:destroy, :update]
   after_action :publish_answer, only: :create
 
-  check_authorization
+  authorize_resource
 
   def create
     @answer = @question.answers.build(answer_params)
@@ -25,11 +25,7 @@ class AnswersController < ApplicationController
   end
 
   def select_best
-    if current_user.author_of?(@answer.question)
-      @answer.select_best
-    else
-      flash[:alert] = "You can not choose the best answer from someone else's question"
-    end
+    @answer.select_best
   end
 
   private

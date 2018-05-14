@@ -2,8 +2,6 @@ class ApplicationController < ActionController::Base
   before_action :gon_user
   before_action :ensure_signup_complete
 
-  authorize_resource
-
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, alert: exception.message
   end

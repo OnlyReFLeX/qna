@@ -7,16 +7,18 @@ div class="answer_#{answer.id} best_#{answer.best}"
       - answer.attachments.each do |a|
         li id="attachment_#{a.id}"
           = link_to a.file.identifier, a.file.url
-          = link_to 'Remove file', attachment_path(a), method: :delete, data: { confirm: 'are you sure?', remote: true }
-    - if current_user&.author_of?(answer)
+          - if can?(:destroy, a)
+            = link_to 'Remove file', attachment_path(a), method: :delete, data: { confirm: 'are you sure?', remote: true }
+    - if can?(:destroy, answer)
       b = link_to 'Delete', answer_path(answer), method: :delete, data: { confirm: 'are you sure?', remote: true }
+    - if can?(:update, answer)
       p= link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
       p
         = form_with model: answer, id: "edit-answer-#{answer.id}", class: 'edit_answer' do |f|
           = f.label :body, "Answer"
           = f.text_area :body
           = f.submit 'Save'
-  - if current_user&.author_of?(answer.question) && !answer.best?
+  - if can?(:select_best, answer)
     = link_to 'Choose best', select_best_answer_path(answer), method: :patch, remote: true
   div class="comment_#{answer.class}_#{answer.id}"
     p
