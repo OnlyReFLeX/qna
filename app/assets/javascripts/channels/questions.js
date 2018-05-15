@@ -1,12 +1,12 @@
 var ready = function () {
   App.cable.subscriptions.create('QuestionsChannel', {
     connected: function() {
-      console.log('Connected!');
+      console.log('Connected questions!');
       this.perform('follow');
     },
 
     received: function(data) {
-      $('tbody').append(JST["templates/question"](data));
+      $('ul').append(JST["templates/question"](data));
     }
   });
 }

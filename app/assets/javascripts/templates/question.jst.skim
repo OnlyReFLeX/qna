@@ -1,5 +1,5 @@
-tr
-  td = @question.title
-  td <a href="/questions/#{@question.id}">Show</a>
-  - if gon.is_user_signed_in && gon.user_id == @question.user_id
-    td <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/questions/#{@question.id}">Delete</a>
+li.collection-item
+  div
+    a href="/questions/#{@question.id}" = @question.title
+    - if gon.is_user_signed_in && gon.user_id == @question.user_id
+      a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/questions/#{@question.id}" class="secondary-content" Delete

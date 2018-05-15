@@ -1,11 +1,7 @@
-h2 Questions
 - if can?(:create, Question)
-  = link_to 'Ask question', new_question_path
-table
-  thead
-    tr
-      th Question
-      th
-      th
-  tbody
-    = render @questions
+  = link_to 'Ask question', new_question_path, class: 'btn'
+
+ul.collection.with-header
+  li.collection-header
+    h4 Questions
+  = render @questions
