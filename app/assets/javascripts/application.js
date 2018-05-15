@@ -16,4 +16,16 @@
 //= require turbolinks
 //= require jquery
 //= require cocoon
+//= require materialize
 //= require_tree .
+
+
+
+
+
+var materialize = function() {
+  M.AutoInit();
+};
+
+$(document).ready(materialize);
+$(document).on('turbolinks:load', materialize);

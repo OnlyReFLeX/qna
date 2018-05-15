@@ -49,3 +49,7 @@ gem 'omniauth-vkontakte', '~> 1.4'
 gem 'omniauth-twitter', '~> 1.4'
 gem 'capybara-email', '~> 3.0'
 gem 'cancancan', '~> 2.2'
+
+# materializecss
+gem 'materialize-sass', '~> 1.0.0.rc1'
+gem 'material_icons', '~> 2.2'
