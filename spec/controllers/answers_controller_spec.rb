@@ -113,7 +113,7 @@ RSpec.describe AnswersController, type: :controller do
 
     it "User tries to choose the best answer of someone else's question" do
       patch :select_best, params: { id: other_answer }, format: :js
-      expect(flash[:alert]).to eq "You are not authorized to access this page."
+      expect(response.status).to eq 403
     end
   end
 

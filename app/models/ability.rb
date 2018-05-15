@@ -18,8 +18,8 @@ class Ability
     guest_abilities
 
     can :create, [Question, Answer, Comment]
-    can :destroy, [Question, Answer], user: user
-    can :update, [Question, Answer], user: user
+    can :destroy, [Question, Answer], user_id: user.id
+    can :update, [Question, Answer], user_id: user.id
 
     alias_action :vote_up, :vote_down, :vote_reset, to: :vote
     can :vote, [Question, Answer] do |resource|
