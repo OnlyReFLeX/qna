@@ -1,29 +1,32 @@
 .question_errors
 div class="question_#{question.id} question" data-id="#{question.id}"
-  p
-    h2 = question.title
-  p
-    h3 = question.body
-  p
-    = render 'shared/rating', resource: question
-  p Attachments:
-  ul
-    - @question.attachments.each do |a|
-      li id="attachment_#{a.id}"
-        = link_to a.file.identifier, a.file.url
-      - if can?(:destroy, a)
-        = link_to 'Remove file', attachment_path(a), method: :delete, data: { confirm: 'are you sure?', remote: true }
-  - if can?(:update, question)
-    p= link_to 'Edit', '', class: 'edit-question-link', data: { question_id: question.id }
-    p
-      = form_with model: question, id: "edit-question-#{question.id}", class: 'edit_question' do |f|
-        = f.label :title
-        = f.text_field :title
-
-        = f.label :body
-        = f.text_area :body
-        = f.submit 'Save'
-  h4 Comments
+  .row
+    .col.s12.m12
+      .card
+        .card-content
+          span.card-title = question.title
+          p = question.body
+          = render 'shared/rating', resource: question
+          ul
+            - @question.attachments.each do |a|
+              li id="attachment_#{a.id}"
+                i class="material-icons" attach_file
+                = link_to a.file.identifier, a.file.url
+              - if can?(:destroy, a)
+                = link_to 'Remove file', attachment_path(a), method: :delete, data: { confirm: 'are you sure?', remote: true }
+          .card-action
+            - if can?(:update, question)
+              p= link_to 'Edit', '', class: 'edit-question-link', data: { question_id: question.id }
+              p
+                = form_with model: question, id: "edit-question-#{question.id}", class: 'edit_question' do |f|
+                  .input-field.col.s12
+                    = f.text_field :title
+                    = f.label :title
+                  .input-field.col.s12
+                    = f.text_area :body, class: 'materialize-textarea'
+                    = f.label :body
+                  = f.submit 'Save', class: 'btn'
+  h5.center Comments
   div class="comment_#{question.class}_#{question.id}"
     p
       = render question.comments

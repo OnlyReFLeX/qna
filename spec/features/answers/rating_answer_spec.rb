@@ -18,33 +18,33 @@ feature 'Rating for answer', %q{
   scenario 'user votes for the positive side of the answer', js: true do
     visit question_path(question)
     within '.answers' do
-      click_on '+1'
-      expect(page).to_not have_link '-1'
-      expect(page).to_not have_link '+1'
-      expect(page).to have_link 'Reset'
-      expect(page).to have_content 'rating1'
+      click_on 'Like'
+      expect(page).to_not have_content 'Dislike'
+      expect(page).to_not have_content 'Like'
+      expect(page).to have_content 'Cancel'
+      expect(page).to have_content '1'
     end
   end
 
   scenario 'the user votes for the negative side of the answer', js: true do
     visit question_path(question)
     within ".answers" do
-      click_link '-1'
-      expect(page).to_not have_link '-1'
-      expect(page).to_not have_link '+1'
-      expect(page).to have_link 'Reset'
-      expect(page).to have_content 'rating-1'
+      click_on 'Dislike'
+      expect(page).to_not have_content 'Dislike'
+      expect(page).to_not have_content 'Like'
+      expect(page).to have_content 'Cancel'
+      expect(page).to have_content '-1'
     end
   end
 
   scenario 'User cancels your vote', js: true do
     visit question_path(question)
     within ".answers" do
-    click_link '-1'
-    expect(page).to have_content 'rating-1'
-    expect(page).to have_link 'Reset'
-    click_link 'Reset'
-    expect(page).to have_content 'rating0'
+    click_on 'Dislike'
+    expect(page).to have_content '-1'
+    expect(page).to have_content 'Cancel'
+    click_on 'Cancel'
+    expect(page).to have_content '0'
     end
   end
 end

@@ -3,7 +3,7 @@
   $(parentClass).find('.errors').html('<%= j render "shared/errors", resource: @comment %>')
 <% else %>
   var parentClass = $(".comment_<%= @resource.class %>_<%= @resource.id %>")
-  $(parentClass).append('<%= j render @comment %>');
+  $(parentClass).prepend('<%= j render @comment %>');
   $(parentClass).find('#comment_body').val('');
   $(parentClass).find('.errors').html('');
 <% end %>

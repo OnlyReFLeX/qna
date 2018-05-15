@@ -23,3 +23,32 @@ $secondary-color: color("blue", "base") !default;
 .hidden {
   display: none;
 };
+
+.votes {
+  margin-left: 0 !important
+}
+
+.vote-cancel-chip {
+  display: none
+}
+
+.votes.has-vote {
+  .vote-up-chip, .vote-down-chip {
+    display: none
+  }
+  .vote-cancel-chip {
+    display: initial
+  }
+}
+
+.input-group {
+    display: table;
+}
+
+.input-group input, .suffix {
+    display: table-cell;
+}
+
+.suffix {
+    width:1%;
+}

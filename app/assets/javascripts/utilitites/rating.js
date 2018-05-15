@@ -5,10 +5,8 @@ var voteBind = function() {
     afterVote(parentClass, data.rating);
   });
   function afterVote(parent, rating) {
-    $(parent + " span").html(rating);
-    $(parent + ' .vote-reset').toggle();
-    $(parent + ' .vote-up').toggle();
-    $(parent + ' .vote-down').toggle();
+    $(parent + " .votes-sum").html(rating);
+    $(parent + ' .votes').toggleClass('has-vote');
   };
 };
 

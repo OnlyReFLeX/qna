@@ -1,12 +1,12 @@
 = render 'question_block', question: @question
-h3 Answers
+h4 Answers
 .answers
   - if @answers.present?
     = render @answers
   - else
-    h4 No answers here
+    p No answers here
 - if can?(:create, Answer)
-  h4 New Answer
+  h5 New Answer
   #answer_errors
   = form_with model: [@question, @answer], class: 'new_answer_form' do |form|
 
@@ -18,9 +18,7 @@ h3 Answers
     #attachments
       = form.fields_for :attachments do |attachment|
         = render 'attachments/attachment_fields', f: attachment
-
-
         = link_to_add_association 'Add attachment', form, :attachments, partial: 'attachments/attachment_fields'
-
-    = form.submit
+    br
+    = form.submit class: 'btn'
 

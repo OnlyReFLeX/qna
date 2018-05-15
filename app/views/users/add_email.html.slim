@@ -1,7 +1,8 @@
-= render 'shared/errors', resource: current_user
 h1 Add Email
+= render 'shared/errors', resource: current_user
 = form_with model: current_user, url: signup_email_user_path(current_user), local: true do |f|
-  = f.label :email
-  = f.text_field :email, value: ''
+  .input-field.col.s12
+    = f.label :email
+    = f.email_field :email, value: ''
   p Please confirm your email address.
-  = f.submit 'Continue'
+  = f.submit 'Continue', class: 'btn'

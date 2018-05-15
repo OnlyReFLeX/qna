@@ -1,9 +1,16 @@
 div class="rating_#{resource.class}_#{resource.id}"
-  p
-    | rating
-    span
-      = resource.rating
-  - if can?(:vote, resource)
-    = link_to 'Reset', polymorphic_path(resource, action: :vote_reset), method: :post, remote: true, class: "vote vote-reset #{'hidden' unless resource.voted_by?(current_user)}"
-    = link_to '+1', polymorphic_path(resource, action: :vote_up), method: :post, remote: true, class: "vote vote-up #{'hidden' if resource.voted_by?(current_user)}"
-    = link_to '-1', polymorphic_path(resource, action: :vote_down), method: :post, remote: true, class: "vote vote-down #{'hidden' if resource.voted_by?(current_user)}"
+  .votes.row class="#{ 'has-vote' if resource.voted_by?(current_user) }"
+    .col.chip.votes-sum = resource.rating
+    - if can?(:vote, resource)
+      .col.vote-up-chip
+        = link_to polymorphic_path(resource, action: :vote_up), remote: true, method: :post, class: 'vote vote-link chip' do
+          | Like
+          i.material-icons.green-text.no-events thumb_up
+      .col.vote-down-chip
+        = link_to polymorphic_path(resource, action: :vote_down), remote: true, method: :post, class: 'vote vote-link chip' do
+          | Dislike
+          i.material-icons.red-text.no-events thumb_down
+      .col.vote-cancel-chip
+        = link_to polymorphic_path(resource, action: :vote_reset), remote: true, method: :post, class: 'vote vote-link chip' do
+          | Cancel
+          i.material-icons.no-events close

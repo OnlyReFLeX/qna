@@ -45,7 +45,7 @@ feature 'Add files to question', %q{
     click_on 'Create'
     click_on 'Log out'
     sign_in(other_user)
-    click_link 'Show'
+    click_link Question.last.title
     expect(page).to_not have_link 'Remove file'
   end
 end

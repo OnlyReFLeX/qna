@@ -1,29 +1,49 @@
 div class="answer_#{@answer.id} best_#{@answer.best}"
-  p
-    b = @answer.body
-  p
-  div class="rating_Answer_#{@answer.id}"
-    p
-      | rating
-      span 0
-    - if gon.is_user_signed_in
-      a.vote.vote-reset.hidden data-method="post" data-remote="true" href="/answers/#{@answer.id}/vote_reset" rel="nofollow"  Reset
-      a.vote.vote-up data-method="post" data-remote="true" href="/answers/#{@answer.id}/vote_up" rel="nofollow"  +1
-      a.vote.vote-down data-method="post" data-remote="true" href="/answers/#{@answer.id}/vote_down" rel="nofollow"  -1
+  .answer.card.blue-grey.darken-1
+    .card-content.white-text
+      p.answer-body = @answer.body
+      br
+      div class="rating_Answer_#{@answer.id}"
+        .votes.row
+          .col.chip.votes-sum
+            | 0
+          .col.vote-up-chip
+            a.vote.vote-link.chip[data-remote="true" rel="nofollow" data-method="post" href="/answers/#{@answer.id}/vote_up"]
+              | Like
+              i.material-icons.green-text.no-events
+                | thumb_up
+          .col.vote-down-chip
+            a.vote.vote-link.chip[data-remote="true" rel="nofollow" data-method="post" href="/answers/#{@answer.id}/vote_down"]
+              | Dislike
+              i.material-icons.red-text.no-events
+                | thumb_down
+          .col.vote-cancel-chip
+            a.vote.vote-link.chip[data-remote="true" rel="nofollow" data-method="post" href="/answers/#{@answer.id}/vote_reset"]
+              | Cancel
+              i.material-icons.no-events
+                | close
 
-  - if @attachments.length > 0
-    #attachments
-      ul
-        - for a in @attachments
-          li id="attachment_#{a.id}"
-            a href=a.url #{a.name}
-  - if gon.user_id == @question_user_id
-    a data-method="patch" data-remote="true" href="/answers/#{@answer.id}/select_best" rel="nofollow"  Choose best
+    - if @attachments.length > 0
+      #attachments
+        ul
+          - for a in @attachments
+            li id="attachment_#{a.id}"
+              i class="material-icons" attach_file
+              a href=a.url #{a.name}
+
+    .card-action
+      - if gon.user_id == @question_user_id
+        a data-method="patch" data-remote="true" href="/answers/#{@answer.id}/select_best" rel="nofollow"  Choose best
   div class="comment_Answer_#{@answer.id}"
-    .errors
-    form.comment_form accept-charset="UTF-8" action="/answers/#{@answer.id}/comments" data-remote="true" method="post"
-      input name="utf8" type="hidden" value="✓"
-      label for="comment_body"  Comment
-      input#comment_body name="comment[body]" type="text"
-      input data-disable-with=("Create Comment") name="commit" type="submit" value=("Create Comment")
-    p
+    .row
+      .col.s10.m10.right
+        .errors
+        form.comment_form[action="/answers/#{@answer.id}/comments" accept-charset="UTF-8" data-remote="true" method="post"]
+          input[name="utf8" type="hidden" value="✓"]
+          .row
+            .input-field.input-group
+              label[for="comment_body"]
+                | Comment
+              input#comment_body[type="text" name="comment[body]"]
+              span.suffix
+                input.btn[type="submit" name="commit" value="Create Comment" data-disable-with="Create Comment"]

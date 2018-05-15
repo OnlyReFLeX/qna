@@ -1,27 +1,30 @@
 div class="answer_#{answer.id} best_#{answer.best}"
-  p
-    b = answer.body
-  p
-    = render 'shared/rating', resource: answer
+  .answer.card.blue-grey.darken-1
+    .card-content.white-text
+      - if answer.best?
+        span.badge.green.white-text.answer-best-badge best
+      p.answer-body = answer.body
+      br = render 'shared/rating', resource: answer
     ul
       - answer.attachments.each do |a|
         li id="attachment_#{a.id}"
+          i class="material-icons" attach_file
           = link_to a.file.identifier, a.file.url
-          - if can?(:destroy, a)
-            = link_to 'Remove file', attachment_path(a), method: :delete, data: { confirm: 'are you sure?', remote: true }
-    - if can?(:destroy, answer)
-      b = link_to 'Delete', answer_path(answer), method: :delete, data: { confirm: 'are you sure?', remote: true }
-    - if can?(:update, answer)
-      p= link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
-      p
+        - if can?(:destroy, a)
+          = link_to 'Remove file', attachment_path(a), method: :delete, data: { confirm: 'are you sure?', remote: true }
+    .card-action
+      - if can?(:select_best, answer)
+        = link_to 'Choose best', select_best_answer_path(answer), method: :patch, remote: true
+      - if can?(:destroy, answer)
+        = link_to 'Delete', answer_path(answer), method: :delete, data: { confirm: 'are you sure?', remote: true }
+      - if can?(:update, answer)
+        = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
         = form_with model: answer, id: "edit-answer-#{answer.id}", class: 'edit_answer' do |f|
-          = f.label :body, "Answer"
-          = f.text_area :body
-          = f.submit 'Save'
-  - if can?(:select_best, answer)
-    = link_to 'Choose best', select_best_answer_path(answer), method: :patch, remote: true
+          .input-field.col.s12
+            = f.text_area :body, class: 'materialize-textarea'
+            = f.label :body, "Answer"
+          = f.submit 'Save', class: 'btn'
+
   div class="comment_#{answer.class}_#{answer.id}"
-    p
-      = render answer.comments
-    p
-      = render 'comments/form', resource: answer
+    = render answer.comments
+    = render 'comments/form', resource: answer

@@ -58,7 +58,7 @@ feature 'Add files to answer', %q{
     click_on 'Create Answer'
     click_on 'Log out'
     sign_in(other_user)
-    click_link 'Show'
+    click_link question.title
     expect(page).to_not have_link 'Remove file'
   end
 end

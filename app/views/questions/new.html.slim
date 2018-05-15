@@ -1,17 +1,17 @@
 = render 'shared/errors', resource: @question
 
 = form_with model: @question, local: true do |form|
-  = form.label :title
-  = form.text_field :title
-
-  = form.label :body
-  = form.text_field :body
+  .input-field.col.s12
+    = form.text_field :title
+    = form.label :title
+  .input-field.col.s12
+    = form.text_area :body, class: 'materialize-textarea'
+    = form.label :body
 
   #attachments
     = form.fields_for :attachments do |attachment|
       = render 'attachments/attachment_fields', f: attachment
 
-
       = link_to_add_association 'Add attachment', form, :attachments, partial: 'attachments/attachment_fields'
 
-  = form.submit
+  = form.submit class: 'btn'

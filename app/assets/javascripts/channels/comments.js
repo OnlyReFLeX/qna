@@ -10,7 +10,7 @@ var ready = function () {
     received: function(data) {
       if (data.comment.user_id != gon.user_id) {
         var parentClass = $(".comment_" + data.comment.commentable_type + "_" + data.comment.commentable_id)
-        $(parentClass).append(JST["templates/comment"](data));
+        $(parentClass).prepend(JST["templates/comment"](data));
       }
     }
   });
