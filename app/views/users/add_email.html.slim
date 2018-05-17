@@ -1,6 +1,6 @@
 h1 Add Email
 = render 'shared/errors', resource: current_user
-= form_with model: current_user, url: signup_email_user_path(current_user), local: true do |f|
+= form_with model: current_user, url: signup_email_users_path, local: true do |f|
   .input-field.col.s12
     = f.label :email
     = f.email_field :email, value: ''

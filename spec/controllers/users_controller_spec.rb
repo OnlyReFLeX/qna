@@ -12,7 +12,7 @@ RSpec.describe UsersController, type: :controller do
 
       it 'render update template' do
         patch :signup_email, params: { id: @user, user: { email: 'new@email.com'} }
-        expect(response.location).to match(add_email_user_path(@user))
+        expect(response.location).to match(add_email_users_path)
       end
     end
 

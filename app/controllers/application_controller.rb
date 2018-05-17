@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   def ensure_signup_complete
     if current_user&.temp_email?
       return if %w[confirmations sessions].include?(controller_name)
-      redirect_to add_email_user_path(current_user)
+      redirect_to add_email_users_path
     end
   end
 

@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   def signup_email
     if current_user.update(user_params)
-      redirect_to add_email_user_path(current_user), notice: 'Confirm your mail (check email)'
+      redirect_to add_email_users_path, notice: 'Confirm your mail (check email)'
     else
       render :add_email
     end
