@@ -51,6 +51,9 @@ gem 'omniauth-twitter', '~> 1.4'
 gem 'capybara-email', '~> 3.0'
 gem 'cancancan', '~> 2.2'
 gem 'doorkeeper', '4.2.6'
+gem 'active_model_serializers', '~> 0.10.7'
+gem 'oj', '~> 3.6'
+gem 'oj_mimic_json', '~> 1.0'
 
 # materializecss
 gem 'materialize-sass', '~> 1.0.0.rc1'

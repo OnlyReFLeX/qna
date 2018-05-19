@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
   def email_verify
     unless current_user.temp_email?
-      redirect_to root_path, notice: 'You do not need to install уmail'
+      redirect_to root_path, notice: 'You do not need to install email'
     end
   end
 end
