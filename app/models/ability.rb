@@ -29,6 +29,7 @@ class Ability
     can :create, [Question, Answer, Comment]
     can :destroy, [Question, Answer], user_id: user.id
     can :update, [Question, Answer], user_id: user.id
+    can [:read, :me], [User]
 
     alias_action :vote_up, :vote_down, :vote_reset, to: :vote
     can :vote, [Question, Answer] do |resource|

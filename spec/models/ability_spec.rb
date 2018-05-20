@@ -64,5 +64,9 @@ RSpec.describe Ability, type: :model do
     context 'Comment' do
       it { should be_able_to :create, Comment }
     end
+
+    context 'User' do
+      it { should be_able_to [:read, :me], User }
+    end
   end
 end
