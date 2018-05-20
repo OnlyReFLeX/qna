@@ -42,6 +42,7 @@ describe 'Profile API' do
       before { get '/api/v1/profiles/', params: { format: :json, access_token: access_token.token } }
 
       it_behaves_like "response successful"
+      it_behaves_like "return array size", 'users', 5
 
       it 'not have current profile' do
         expect(response.body).to_not include_json(me.to_json)

@@ -13,10 +13,7 @@ describe 'questions API' do
       before { get '/api/v1/questions/', params: { format: :json, access_token: access_token.token } }
 
       it_behaves_like "response successful"
-
-      it 'returns list of questions' do
-        expect(response.body).to have_json_size(5)
-      end
+      it_behaves_like "return array size", 'questions', 5
 
       %w(id title body created_at updated_at).each do |attr|
         it "question object contains #{attr}" do
@@ -52,13 +49,8 @@ describe 'questions API' do
 
       it_behaves_like "response successful"
 
-      it 'returns comments for question' do
-        expect(response.body).to have_json_size(5).at_path('comments')
-      end
-
-      it 'returns attachments for question' do
-        expect(response.body).to have_json_size(5).at_path('attachments')
-      end
+      it_behaves_like "return array size", 'comments', 5, 'comments'
+      it_behaves_like "return array size", 'attachments', 5, 'attachments'
 
       it "attachments object contains file" do
         expect(response.body).to be_json_eql(attachment.file.to_json).at_path('attachments/0/file')
