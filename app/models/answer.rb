@@ -13,7 +13,7 @@ class Answer < ApplicationRecord
 
   accepts_nested_attributes_for :attachments, reject_if: :all_blank
 
-  after_commit :subscribers_notification
+  after_commit :subscribers_notification, on: :create
 
   def select_best
     old_best = question.answers.find_by(best: true)
