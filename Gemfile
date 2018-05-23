@@ -58,3 +58,6 @@ gem 'oj_mimic_json', '~> 1.0'
 # materializecss
 gem 'materialize-sass', '~> 1.0.0.rc1'
 gem 'material_icons', '~> 2.2'
+
+gem 'sidekiq'
+gem 'whenever'
