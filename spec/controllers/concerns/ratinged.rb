@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 shared_examples_for "ratinged" do
-
   sign_in_user
   let(:other_user) { create(:user) }
 

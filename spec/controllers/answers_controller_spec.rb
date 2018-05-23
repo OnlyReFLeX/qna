@@ -117,8 +117,7 @@ RSpec.describe AnswersController, type: :controller do
     end
   end
 
-  it_behaves_like 'ratinged' do
-    let(:resource) { create(:answer, user: other_user, question: question) }
-    let(:other_resource) { create(:answer, user: @user, question: question) }
-  end
+  let(:resource) { create(:answer, user: other_user, question: question) }
+  let(:other_resource) { create(:answer, user: @user, question: question) }
+  it_behaves_like 'ratinged'
 end

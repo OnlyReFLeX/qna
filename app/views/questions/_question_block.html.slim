@@ -8,7 +8,7 @@ div class="question_#{question.id} question" data-id="#{question.id}"
           p = question.body
           = render 'shared/rating', resource: question
           ul
-            - @question.attachments.each do |a|
+            - question.attachments.each do |a|
               li id="attachment_#{a.id}"
                 i class="material-icons" attach_file
                 = link_to a.file.identifier, a.file.url
@@ -26,6 +26,15 @@ div class="question_#{question.id} question" data-id="#{question.id}"
                     = f.text_area :body, class: 'materialize-textarea'
                     = f.label :body
                   = f.submit 'Save', class: 'btn'
+            .right
+              - if can?(:subscribe, question)
+                  = link_to unsubscribe_question_path, method: :delete do
+                    | Unsubscribe
+                    i.material-icons.right notifications
+              - if can?(:unsubscribe, question)
+                  = link_to subscribe_question_path, method: :post do
+                    | Subscribe
+                    i.material-icons.right notifications_none
   h5.center Comments
   div class="comment_#{question.class}_#{question.id}"
     p

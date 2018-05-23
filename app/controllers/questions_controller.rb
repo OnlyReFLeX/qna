@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   include Ratinged
+  include Subscribed
 
   before_action :authenticate_user!, except: [:show, :index]
   before_action :find_question, only: :show

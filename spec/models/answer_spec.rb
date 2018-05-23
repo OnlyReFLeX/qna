@@ -28,5 +28,9 @@ RSpec.describe Answer, type: :model do
     end
   end
 
+  let(:user) { create(:user) }
+  let(:other_user) { create(:user) }
+  let(:resource) { create(:answer, user: user, question: create(:question, user: user)) }
+
   it_behaves_like "ratingable"
 end

@@ -23,8 +23,15 @@ Rails.application.routes.draw do
     resources :comments, only: :create, shallow: true
   end
 
+  concern :subscribable do
+    member do
+      post :subscribe
+      delete :unsubscribe
+    end
+  end
+
   resources :attachments, only: :destroy
-  resources :questions, except: [:edit], concerns: [:ratingable, :commentable] do
+  resources :questions, except: [:edit], concerns: [:ratingable, :commentable, :subscribable] do
     resources :answers, only: [:create, :destroy, :update], shallow: true, concerns: [:ratingable, :commentable] do
       member do
         patch :select_best

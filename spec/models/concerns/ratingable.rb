@@ -1,10 +1,6 @@
 shared_examples_for "ratingable" do
   it { should have_many(:ratings).dependent(:destroy) }
 
-  let(:user) { create(:user) }
-  let(:other_user) { create(:user) }
-  let(:resource) { create(:question, user: user) }
-
   describe '#vote_up(user)' do
     it 'adds a positive voice' do
       resource.vote_up(user)
