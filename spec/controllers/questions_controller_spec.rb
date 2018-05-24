@@ -137,8 +137,4 @@ RSpec.describe QuestionsController, type: :controller do
     let(:resource) { create(:question, user: other_user) }
     let(:other_resource) { create(:question, user: @user) }
   end
-
-  it_behaves_like 'subscribed' do
-    let(:resource) { create(:question, user: other_user) }
-  end
 end

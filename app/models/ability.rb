@@ -26,7 +26,7 @@ class Ability
   def user_abilities
     guest_abilities
 
-    can :create, [Question, Answer, Comment]
+    can :create, [Question, Answer, Comment, Subscription]
     can :destroy, [Question, Answer], user_id: user.id
     can :update, [Question, Answer], user_id: user.id
     can [:read, :me], [User]
@@ -44,12 +44,8 @@ class Ability
       user.author_of?(answer.question) && !answer.best?
     end
 
-    can :subscribe, Question do |question|
-      question.subscribed?(user)
-    end
-
-    can :unsubscribe, Question do |question|
-      !question.subscribed?(user)
+    can :destroy, Subscription do |subscription|
+      subscription.question.subscribed?(user)
     end
   end
 end
