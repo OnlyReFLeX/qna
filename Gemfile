@@ -61,3 +61,5 @@ gem 'material_icons', '~> 2.2'
 
 gem 'sidekiq'
 gem 'whenever'
+gem 'mysql2'
+gem 'thinking-sphinx', '~> 4.0'

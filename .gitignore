@@ -30,3 +30,8 @@ config/database.yml
 .idea
 
 config/secrets.yml
+
+config/development.sphinx.conf
+db/sphinx
+
+config/test.sphinx.conf
