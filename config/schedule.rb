@@ -23,6 +23,6 @@ every 1.day, roles: [:app] do
   runner "DailyDigestJob.perform_now"
 end
 
-every 15.minutes, roles: [:app] do
+every 3.minutes, roles: [:app] do
   rake "ts:index"
 end
