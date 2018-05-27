@@ -22,6 +22,7 @@ role :web, %w{deployer@qanda.cf}
 role :db,  %w{deployer@qanda.cf}
 
 set :rails_env, :production
+set :stage, :production
 
 # Configuration
 # =============
