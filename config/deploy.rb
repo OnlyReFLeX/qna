@@ -8,6 +8,8 @@ set :repo_url, "git@github.com:OnlyReFLeX/qna.git"
 set :deploy_to, "/home/deployer/qna"
 set :deploy_user, 'deployer'
 
+set :sidekiq_config, "#{current_path}/config/sidekiq.yml"
+
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
