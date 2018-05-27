@@ -6,7 +6,7 @@ var ready = function () {
     },
 
     received: function(data) {
-      $('ul').append(JST["templates/question"](data));
+      $('.questions-index').append(JST["templates/question"](data));
     }
   });
 }
