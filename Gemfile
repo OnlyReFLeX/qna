@@ -30,6 +30,7 @@ group :development do
   gem 'capistrano-bundler', '~> 1.3', require: false
   gem 'capistrano-rails', '~> 1.3', require: false
   gem 'capistrano-rvm', '~> 0.1.2', require: false
+  gem 'capistrano-passenger', require: false
 end
 
 group :test do
@@ -67,6 +68,5 @@ gem 'sidekiq'
 gem 'whenever'
 gem 'mysql2'
 gem 'thinking-sphinx', '~> 4.0'
-gem 'dotenv'
-gem 'dotenv-deployment', require: 'dotenv/deployment'
+gem 'dotenv-rails'
 gem 'therubyracer'
