@@ -4,7 +4,7 @@ class Answer < ApplicationRecord
 
   has_many :attachments, as: :attachable
 
-  belongs_to :question
+  belongs_to :question, touch: true
   belongs_to :user
 
   validates :body, presence: true

@@ -4,7 +4,7 @@ class Api::V1::QuestionsController < Api::V1::BaseController
   authorize_resource
 
   def index
-    respond_with(Question.all)
+    respond_with(Question.order(:created_at))
   end
 
   def show

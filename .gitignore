@@ -33,3 +33,5 @@ config/development.sphinx.conf
 db/sphinx
 
 config/test.sphinx.conf
+
+.env
