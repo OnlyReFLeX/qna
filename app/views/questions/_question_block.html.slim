@@ -4,14 +4,16 @@ div class="question_#{question.id} question" data-id="#{question.id}"
     .col.s12.m12
       .card
         .card-content
-          span.card-title = question.title
-          p = question.body
+          - cache question do
+            span.card-title = question.title
+            p = question.body
           = render 'shared/rating', resource: question
           ul
             - question.attachments.each do |a|
-              li id="attachment_#{a.id}"
-                i class="material-icons" attach_file
-                = link_to a.file.identifier, a.file.url
+              - cache a do
+                li id="attachment_#{a.id}"
+                  i class="material-icons" attach_file
+                  = link_to a.file.identifier, a.file.url
               - if can?(:destroy, a)
                 = link_to 'Remove file', attachment_path(a), method: :delete, data: { confirm: 'are you sure?', remote: true }
           .card-action

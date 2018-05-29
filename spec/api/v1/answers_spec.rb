@@ -16,7 +16,6 @@ describe 'answers API' do
 
       it_behaves_like "response successful"
       it_behaves_like "return array size", 'questions', 5
-
       %w(id body created_at updated_at).each do |attr|
         it "answer object contains #{attr}" do
           expect(response.body).to be_json_eql(question.send(attr.to_sym).to_json).at_path("0/#{attr}")
